@@ -1,5 +1,5 @@
-# react-boilerplate
-Boilerplate for new React 16.8 Projects
+# the-drop-website
+The Drop Website
 
 ## Setup
 
