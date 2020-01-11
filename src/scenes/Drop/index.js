@@ -3,6 +3,12 @@ import styled from "styled-components/macro"
 
 import Helmet from "components/Helmet"
 import { getDrop } from "services/firebase"
+import GoogleMap from "components/GoogleMap"
+
+const Container = styled.div`
+  height: 100%;
+  width: 100%;
+`
 
 export default function Drop(props) {
   const {
@@ -50,10 +56,17 @@ export default function Drop(props) {
     )
   }
 
+  console.log(drop)
+
+  const center = {
+    lat: drop.location.latitude,
+    lng: drop.location.longitude
+  }
+
   return (
-    <>
+    <Container>
       <Helmet title="Drop" />
-      drop
-    </>
+      <GoogleMap center={center} />
+    </Container>
   )
 }
