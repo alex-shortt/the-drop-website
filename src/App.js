@@ -7,7 +7,7 @@ import FullScreenLoading from "components/FullScreenLoading"
 import ScrollToTop from "components/ScrollToTop"
 import GA from "services/ga"
 
-const View = React.lazy(() => import("scenes/View"))
+const Landing = React.lazy(() => import("scenes/Landing"))
 
 const GoogleAnalytics = () => {
   const { location } = useReactRouter()
@@ -24,7 +24,7 @@ export default function App() {
           <GoogleAnalytics />
           <ScrollToTop>
             <Switch>
-              <Route path="/" component={View} />
+              <Route path="/" component={Landing} />
               {/* TODO: 404 Page */}
             </Switch>
           </ScrollToTop>
