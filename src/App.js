@@ -8,6 +8,7 @@ import ScrollToTop from "components/ScrollToTop"
 import GA from "services/ga"
 
 const View = React.lazy(() => import("scenes/View"))
+const Drop = React.lazy(() => import("scenes/Drop"))
 
 const GoogleAnalytics = () => {
   const { location } = useReactRouter()
@@ -24,7 +25,9 @@ export default function App() {
           <GoogleAnalytics />
           <ScrollToTop>
             <Switch>
-              <Route path="/" component={View} />
+              <Route path="/" exact component={View} />
+              <Route path="/:id" exact component={Drop} />
+              <Route path="/:id/:venmo" component={Drop} />
               {/* TODO: 404 Page */}
             </Switch>
           </ScrollToTop>
