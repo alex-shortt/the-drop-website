@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useCallback } from "react"
 import styled from "styled-components/macro"
 
 import Helmet from "components/Helmet"
@@ -48,8 +48,22 @@ export default function Admin(props) {
   const [prize, setPrize] = useState(1)
   const [password, setPassword] = useState("")
   const [startDate, setStartDate] = useState(new Date())
-  const [notifyDate, setNotifyDate] = useState(new Date())
+  const [notifyDate, setNotifyDate] = useState(null)
   const [location, setLocation] = useState({ lat: 34.421, lng: -119.847 })
+
+  const onSubmit = useCallback(async () => {
+    const info = {
+      name,
+      code,
+      prize,
+      password,
+      startDate,
+      notifyDate,
+      location
+    }
+    console.log("submitting...")
+    console.log(info)
+  }, [code, location, name, notifyDate, password, prize, startDate])
 
   return (
     <Container>
@@ -58,9 +72,15 @@ export default function Admin(props) {
       <hr />
       <Group>
         <TextInput name="Name" state={name} setState={setName} />
-        <TextInput name="Code" state={code} setState={setCode} />
+        <TextInput
+          name="Code"
+          subtitle="Leave blank for random"
+          state={code}
+          setState={setCode}
+        />
         <DateInput
           name="Notify Date"
+          subtitle="Optional"
           state={notifyDate}
           setState={setNotifyDate}
         />
@@ -70,12 +90,14 @@ export default function Admin(props) {
           setState={setStartDate}
         />
         <NumInput
-          name="Prize Amount (in $)"
+          name="Prize Amount"
+          subtitle="In Dollars"
           state={prize}
           setState={setPrize}
         />
         <TextInput
           name="Password"
+          subtitle="It's definitely not 'password'"
           state={password}
           setState={setPassword}
           type="password"
@@ -86,7 +108,7 @@ export default function Admin(props) {
       <br />
       <br />
       <br />
-      <Submit>Submit</Submit>
+      <Submit onClick={onSubmit}>Submit</Submit>
     </Container>
   )
 }

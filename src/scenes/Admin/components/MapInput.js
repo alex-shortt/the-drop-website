@@ -7,7 +7,7 @@ import Marker from "components/Marker"
 const API_KEY = "AIzaSyCjo88UEPDl7uwUV_X-x2nD3mlF0HlXrHU"
 
 const Container = styled.div`
-  width: 80%;
+  width: 90%;
   max-width: 500px;
   margin: 0 auto;
   height: 500px;
@@ -44,10 +44,12 @@ export default function MapInput(props) {
       return
     }
 
-    const bounds = map.getBounds()
-    const ne = bounds.getNorthEast()
-    const sw = bounds.getSouthWest()
-    setState(map.center)
+    const loc = map.center
+
+    setState({
+      lng: loc.lng(),
+      lat: loc.lat()
+    })
   }, [map, setState])
 
   if (!state.lat || !state.lng) {

@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components/macro"
 import DatePickerBase from "react-datepicker"
 
-import { Container } from "./commonComponents"
+import { Container, Title } from "./commonComponents"
 
 const DatePicker = styled(DatePickerBase)`
   margin: 10px 0;
@@ -13,7 +13,7 @@ export default function DateInput(props) {
 
   return (
     <Container>
-      <h3>{name}</h3>
+      <Title>{name}</Title>
       <DatePicker
         selected={state}
         onChange={date => setState(date)}

@@ -1,14 +1,15 @@
 import React from "react"
 import styled from "styled-components/macro"
 
-import { Container, Input } from "./commonComponents"
+import { Container, Input, Subtitle, Title } from "./commonComponents"
 
 export default function NumInput(props) {
-  const { name, state, setState } = props
+  const { name, state, setState, subtitle } = props
 
   return (
     <Container>
-      <h3>{name}</h3>
+      <Title>{name}</Title>
+      {subtitle && <Subtitle>{subtitle}</Subtitle>}
       <Input
         value={state}
         onChange={e => setState(e.target.value)}
