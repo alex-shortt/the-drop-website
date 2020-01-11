@@ -4,6 +4,8 @@ import styled from "styled-components/macro"
 import Helmet from "components/Helmet"
 import { getDrop } from "services/firebase"
 import GoogleMap from "components/GoogleMap"
+import { usePosition } from "services/position"
+import Marker from "components/Marker"
 
 const Container = styled.div`
   height: 100%;
@@ -19,6 +21,7 @@ export default function Drop(props) {
 
   const [error, setError] = useState(false)
   const [drop, setDrop] = useState(null)
+  const userPosition = usePosition()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,9 +37,6 @@ export default function Drop(props) {
       fetchData()
     }
   }, [drop, error, id])
-
-  console.log(id)
-  console.log(venmo)
 
   if (!drop && !error) {
     return (
@@ -56,17 +56,22 @@ export default function Drop(props) {
     )
   }
 
-  console.log(drop)
-
-  const center = {
-    lat: drop.location.latitude,
-    lng: drop.location.longitude
-  }
+  const center = convertCoords(drop.location)
+  const userPos =
+    userPosition && userPosition.latitude ? convertCoords(userPosition) : null
 
   return (
     <Container>
       <Helmet title="Drop" />
-      <GoogleMap center={center} />
+      <GoogleMap center={center}>
+        <Marker position={center} />
+        {userPos && <Marker position={userPos} />}
+      </GoogleMap>
     </Container>
   )
 }
+
+const convertCoords = pos => ({
+  lat: pos.latitude,
+  lng: pos.longitude
+})
