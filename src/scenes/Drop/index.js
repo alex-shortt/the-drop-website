@@ -7,6 +7,10 @@ import GoogleMap from "components/GoogleMap"
 import { usePosition } from "services/position"
 import Marker from "components/Marker"
 
+import LoadingDrop from "./components/LoadingDrop"
+import ErrorDrop from "./components/ErrorDrop"
+import CodeInput from "./components/CodeInput"
+
 const Container = styled.div`
   height: 100%;
   width: 100%;
@@ -21,6 +25,7 @@ export default function Drop(props) {
 
   const [error, setError] = useState(false)
   const [drop, setDrop] = useState(null)
+  const [code, setCode] = useState("")
   const userPosition = usePosition()
 
   useEffect(() => {
@@ -39,21 +44,11 @@ export default function Drop(props) {
   }, [drop, error, id])
 
   if (!drop && !error) {
-    return (
-      <>
-        <Helmet title="Drop" />
-        Loading...
-      </>
-    )
+    return <LoadingDrop />
   }
 
   if (error) {
-    return (
-      <>
-        <Helmet title="Drop" />
-        Error: {error}
-      </>
-    )
+    return <ErrorDrop error={error} />
   }
 
   const center = convertCoords(drop.location)
@@ -67,6 +62,7 @@ export default function Drop(props) {
         <Marker position={center} />
         {userPos && <Marker position={userPos} />}
       </GoogleMap>
+      <CodeInput state={code} setState={setCode} />
     </Container>
   )
 }
