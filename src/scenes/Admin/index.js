@@ -6,6 +6,7 @@ import Helmet from "components/Helmet"
 import TextInput from "./components/TextInput"
 import DateInput from "./components/DateInput"
 import NumInput from "./components/NumInput"
+import MapInput from "./components/MapInput"
 
 const Title = styled.h1``
 
@@ -15,6 +16,7 @@ export default function Admin(props) {
   const [prize, setPrize] = useState(1)
   const [startDate, setStartDate] = useState(new Date())
   const [notifyDate, setNotifyDate] = useState(new Date())
+  const [location, setLocation] = useState({ lat: 34.421, lng: -119.847 })
 
   return (
     <>
@@ -29,6 +31,7 @@ export default function Admin(props) {
         state={notifyDate}
         setState={setNotifyDate}
       />
+      <MapInput name="Location" state={location} setState={setLocation} />
     </>
   )
 }
