@@ -4,6 +4,8 @@ import "normalize.css"
 
 import "./fontawesome"
 
+import "react-datepicker/dist/react-datepicker.css"
+
 export default createGlobalStyle`
   html, body, #root {
     height: 100%;
