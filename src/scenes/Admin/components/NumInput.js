@@ -1,16 +1,14 @@
 import React from "react"
-import styled from "styled-components"
+import styled from "styled-components/macro"
 
-const Container = styled.div``
-
-const Input = styled.input``
+import { Container, Input } from "./commonComponents"
 
 export default function NumInput(props) {
   const { name, state, setState } = props
 
   return (
     <Container>
-      <p>{name}</p>
+      <h3>{name}</h3>
       <Input
         value={state}
         onChange={e => setState(e.target.value)}

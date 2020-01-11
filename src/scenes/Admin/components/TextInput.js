@@ -1,16 +1,18 @@
 import React from "react"
-import styled from "styled-components"
+import styled from "styled-components/macro"
 
-const Container = styled.div``
-
-const Input = styled.input``
+import { Container, Input } from "./commonComponents"
 
 export default function TextInput(props) {
-  const { name, state, setState } = props
+  const { name, state, setState, ...restProps } = props
   return (
     <Container>
-      <p>{name}</p>
-      <Input value={state} onChange={e => setState(e.target.value)} />
+      <h3>{name}</h3>
+      <Input
+        value={state}
+        onChange={e => setState(e.target.value)}
+        {...restProps}
+      />
     </Container>
   )
 }

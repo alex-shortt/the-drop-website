@@ -28,6 +28,10 @@ const Container = styled.div`
   }
 `
 
+const Title = styled.h3`
+  text-align: center;
+`
+
 let initCenter
 
 export default function MapInput(props) {
@@ -61,7 +65,7 @@ export default function MapInput(props) {
 
   return (
     <>
-      <h2>{name}</h2>
+      <Title>{name}</Title>
       <Container>
         <LoadScript googleMapsApiKey={API_KEY}>
           <GoogleMapReact
