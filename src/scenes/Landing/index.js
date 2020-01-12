@@ -30,22 +30,43 @@ const Title = styled.h1`
   margin: 0;
   border-bottom: 1px solid black;
 `
+const ErrorText = styled.p`
+  color: red;
+  text-align: center;
+`
+
+const SuccessText = styled.p`
+  color: green;
+  text-align: center;
+`
 
 const Button = styled.button``
 
 const Input = styled.input``
 
 export default function Landing(props) {
+  const [error, setError] = useState()
+  const [success, setSuccess] = useState()
   const [phone, setPhone] = useState("")
   const [venmo, setVenmo] = useState("")
 
-  const onSubmit = useCallback(
-    e => {
-      console.log(phone)
-      console.log(venmo)
-    },
-    [phone]
-  )
+  const onSubmit = useCallback(async () => {
+    setError(null)
+    const info = {
+      phone,
+      venmo
+    }
+    const response = await addUser(info)
+    const result = await response.json()
+
+    if (!response.ok) {
+      setError(result.message)
+    } else {
+      setSuccess(true)
+      setPhone("")
+      setVenmo("")
+    }
+  }, [phone, venmo])
 
   return (
     <Container>
@@ -62,6 +83,8 @@ export default function Landing(props) {
         state={venmo}
         setState={setVenmo}
       />
+      {error && <ErrorText>{error}</ErrorText>}
+      {success && <SuccessText>Success</SuccessText>}
       <Submit onClick={onSubmit}>Submit</Submit>
 
     </Container>
