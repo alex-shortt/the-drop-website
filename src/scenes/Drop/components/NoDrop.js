@@ -11,6 +11,8 @@ const Container = styled.div`
   color: white;
   flex-direction: column;
   text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
 `
 
 const ErrorText = styled.h3`

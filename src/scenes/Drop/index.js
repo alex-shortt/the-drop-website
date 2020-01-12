@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import styled from "styled-components/macro"
 import { Marker } from "@react-google-maps/api"
 
@@ -8,7 +8,9 @@ import GoogleMap from "components/GoogleMap"
 import { usePosition } from "services/position"
 import dropImage from "assets/images/drop.png"
 import markerImage from "assets/images/marker.png"
+import { useVenmo } from "services/localStorage"
 
+import GetVenmo from "./components/GetVenmo"
 import NoDrop from "./components/NoDrop"
 import CodeInput from "./components/CodeInput"
 
@@ -21,12 +23,17 @@ export default function Drop(props) {
   const {
     history,
     match: {
-      params: { id, venmo }
+      params: { id }
     }
   } = props
 
+  const { venmo, setVenmo } = useVenmo()
   const userPosition = usePosition()
   const { drop, error } = useDrop(id)
+
+  if (!venmo) {
+    return <GetVenmo setVenmo={setVenmo} />
+  }
 
   if ((!drop && !error) || error || drop.status !== "active" || drop.winner) {
     return <NoDrop drop={drop} error={error} />

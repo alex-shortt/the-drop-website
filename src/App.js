@@ -31,8 +31,7 @@ export default function App() {
               <Route path="/" exact component={Landing} />
               <Route path="/admin" exact component={Admin} />
               <Route path="/success" exact component={Success} />
-              <Route path="/:id" exact component={Drop} />
-              <Route path="/:id/:venmo" component={Drop} />
+              <Route path="/:id" component={Drop} />
               {/* TODO: 404 Page */}
             </Switch>
           </ScrollToTop>
