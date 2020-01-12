@@ -16,4 +16,12 @@ export default createGlobalStyle`
     overflow: auto;
     overflow-x: hidden;
   }
+  
+  .gm-control-active.gm-fullscreen-control {
+    display: none;
+  }
+  
+  .gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom{
+    top: 0;
+  }
 `

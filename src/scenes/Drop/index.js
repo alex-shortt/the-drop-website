@@ -3,7 +3,7 @@ import styled from "styled-components/macro"
 import { Marker } from "@react-google-maps/api"
 
 import Helmet from "components/Helmet"
-import { getDrop } from "services/firebase"
+import { useDrop } from "services/firebase"
 import GoogleMap from "components/GoogleMap"
 import { usePosition } from "services/position"
 import dropImage from "assets/images/drop.png"
@@ -19,31 +19,16 @@ const Container = styled.div`
 
 export default function Drop(props) {
   const {
+    history,
     match: {
       params: { id, venmo }
     }
   } = props
 
-  const [error, setError] = useState(false)
-  const [drop, setDrop] = useState(null)
   const userPosition = usePosition()
+  const { drop, error } = useDrop(id)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getDrop(id)
-      if (!result) {
-        setError("Drop Not Found")
-      } else {
-        setDrop(result)
-      }
-    }
-
-    if (!drop && !error) {
-      fetchData()
-    }
-  }, [drop, error, id])
-
-  if ((!drop && !error) || error || drop.status !== "active") {
+  if ((!drop && !error) || error || drop.status !== "active" || drop.winner) {
     return <NoDrop drop={drop} error={error} />
   }
 
@@ -58,7 +43,7 @@ export default function Drop(props) {
         <Marker icon={dropImage} position={center} />
         {userPos && <Marker icon={markerImage} position={userPos} />}
       </GoogleMap>
-      <CodeInput venmo={venmo} />
+      <CodeInput venmo={venmo} history={history} />
     </Container>
   )
 }

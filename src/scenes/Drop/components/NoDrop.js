@@ -10,6 +10,7 @@ const Container = styled.div`
   align-items: center;
   color: white;
   flex-direction: column;
+  text-align: center;
 `
 
 const ErrorText = styled.h3`
@@ -39,6 +40,17 @@ export default function NoDrop(props) {
   }
 
   if (drop.status !== "active") {
+    return (
+      <Container>
+        <ErrorText>error</ErrorText>
+        <br />
+        <br />
+        <h3>Someone got to the drop before you</h3>
+      </Container>
+    )
+  }
+
+  if (drop.winner) {
     return (
       <Container>
         <ErrorText>error</ErrorText>

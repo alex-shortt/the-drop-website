@@ -59,8 +59,21 @@ const CameraIcon = styled(FontAwesomeIcon)`
   margin-right: 5px;
 `
 
+const Error = styled.p`
+  color: red;
+  background: white;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 10pt;
+  padding: 5px;
+  text-align: center;
+`
+
 export default function CodeInput(props) {
-  const { venmo } = props
+  const { venmo, history } = props
 
   const [success, setSuccess] = useState(null)
   const [error, setError] = useState(null)
@@ -75,18 +88,18 @@ export default function CodeInput(props) {
       if (data) {
         setError(null)
         setQrOpen(false)
-        console.log(venmo)
         const response = await verifyCode({ venmo, code: data })
         const result = await response.json()
 
         if (!response.ok) {
-          setSuccess(true)
-        } else {
           setError(result.message || "Unknown Error")
+        } else {
+          setSuccess(true)
+          history.push("/success")
         }
       }
     },
-    [venmo]
+    [history, venmo]
   )
 
   const toggleQrOpen = useCallback(() => {
@@ -106,6 +119,7 @@ export default function CodeInput(props) {
           <Background />
         </>
       )}
+      {error && <Error>{error}</Error>}
       <Button onClick={toggleQrOpen}>
         {qrOpen ? (
           <FontAwesomeIcon icon="times" />

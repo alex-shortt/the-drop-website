@@ -7,6 +7,8 @@ import FullScreenLoading from "components/FullScreenLoading"
 import ScrollToTop from "components/ScrollToTop"
 import GA from "services/ga"
 
+import Success from "./scenes/Success"
+
 const Drop = React.lazy(() => import("scenes/Drop"))
 const Landing = React.lazy(() => import("scenes/Landing"))
 const Admin = React.lazy(() => import("scenes/Admin"))
@@ -28,6 +30,7 @@ export default function App() {
             <Switch>
               <Route path="/" exact component={Landing} />
               <Route path="/admin" exact component={Admin} />
+              <Route path="/success" exact component={Success} />
               <Route path="/:id" exact component={Drop} />
               <Route path="/:id/:venmo" component={Drop} />
               {/* TODO: 404 Page */}
