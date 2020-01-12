@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components/macro"
+import { Marker } from "@react-google-maps/api"
 
 import Helmet from "components/Helmet"
 import { getDrop } from "services/firebase"
 import GoogleMap from "components/GoogleMap"
 import { usePosition } from "services/position"
-import Marker from "components/Marker"
+import dropImage from "assets/images/drop.png"
 
 import LoadingDrop from "./components/LoadingDrop"
 import ErrorDrop from "./components/ErrorDrop"
@@ -59,7 +60,7 @@ export default function Drop(props) {
     <Container>
       <Helmet title="Drop" />
       <GoogleMap center={center}>
-        <Marker position={center} />
+        <Marker icon={dropImage} position={center} />
         {userPos && <Marker position={userPos} />}
       </GoogleMap>
       <CodeInput state={code} setState={setCode} />

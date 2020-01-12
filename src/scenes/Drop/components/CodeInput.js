@@ -17,10 +17,17 @@ const Button = styled.button`
   width: 100%;
   border-radius: 10px;
   z-index: 2;
+  cursor: pointer;
+  transition: filter 0.15s linear;
 
   @media screen and (max-width: 700px) {
     font-size: 1.4rem;
     max-width: 200px;
+  }
+
+  &:hover,
+  &:active {
+    filter: brightness(1.1);
   }
 `
 
@@ -30,7 +37,7 @@ const QrReader = styled(QrReaderBase)`
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   width: 500px !important;
-  height: 500px;
+  max-width: 95%;
   z-index: 2;
 `
 
@@ -43,6 +50,10 @@ const Background = styled.div`
   width: 100%;
   height: 100%;
   z-index: 1;
+`
+
+const CameraIcon = styled(FontAwesomeIcon)`
+  margin-right: 5px;
 `
 
 export default function CodeInput(props) {
@@ -83,7 +94,7 @@ export default function CodeInput(props) {
           <FontAwesomeIcon icon="times" />
         ) : (
           <>
-            <FontAwesomeIcon icon="camera" /> Submit
+            <CameraIcon icon="camera" /> submit
           </>
         )}
       </Button>

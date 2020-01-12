@@ -12,7 +12,7 @@ export default createGlobalStyle`
   }
 
   body {
-    font-family: Avenir, Lato, Roboto, sans-serif;
+    font-family: Futura, Avenir, Lato, Roboto, sans-serif;
     overflow: auto;
     overflow-x: hidden;
   }
