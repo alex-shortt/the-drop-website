@@ -7,9 +7,9 @@ import { getDrop } from "services/firebase"
 import GoogleMap from "components/GoogleMap"
 import { usePosition } from "services/position"
 import dropImage from "assets/images/drop.png"
+import markerImage from "assets/images/marker.png"
 
-import LoadingDrop from "./components/LoadingDrop"
-import ErrorDrop from "./components/ErrorDrop"
+import NoDrop from "./components/NoDrop"
 import CodeInput from "./components/CodeInput"
 
 const Container = styled.div`
@@ -26,7 +26,6 @@ export default function Drop(props) {
 
   const [error, setError] = useState(false)
   const [drop, setDrop] = useState(null)
-  const [code, setCode] = useState("")
   const userPosition = usePosition()
 
   useEffect(() => {
@@ -44,12 +43,8 @@ export default function Drop(props) {
     }
   }, [drop, error, id])
 
-  if (!drop && !error) {
-    return <LoadingDrop />
-  }
-
-  if (error) {
-    return <ErrorDrop error={error} />
+  if ((!drop && !error) || error || drop.status !== "active") {
+    return <NoDrop drop={drop} error={error} />
   }
 
   const center = convertCoords(drop.location)
@@ -61,9 +56,9 @@ export default function Drop(props) {
       <Helmet title="Drop" />
       <GoogleMap center={center}>
         <Marker icon={dropImage} position={center} />
-        {userPos && <Marker position={userPos} />}
+        {userPos && <Marker icon={markerImage} position={userPos} />}
       </GoogleMap>
-      <CodeInput state={code} setState={setCode} />
+      <CodeInput venmo={venmo} />
     </Container>
   )
 }

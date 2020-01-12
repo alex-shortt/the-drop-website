@@ -4,6 +4,12 @@ export async function addDrop(data) {
   })
 }
 
+export async function verifyCode(data) {
+  return fetchWithBody("verifyCode", {
+    body: data
+  })
+}
+
 async function fetchWithBody(endpoint, params) {
   const { body, ...restParams } = params
 
