@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react"
 import styled from "styled-components/macro"
 
+import { addDrop } from "services/backend"
 import Helmet from "components/Helmet"
 
 import TextInput from "./components/TextInput"
@@ -42,7 +43,17 @@ const Submit = styled.button`
   }
 `
 
+const ErrorText = styled.p`
+  color: red;
+`
+
+const SuccessText = styled.p`
+  color: green;
+`
+
 export default function Admin(props) {
+  const [error, setError] = useState()
+  const [success, setSuccess] = useState()
   const [name, setName] = useState("")
   const [code, setCode] = useState("")
   const [prize, setPrize] = useState(1)
@@ -52,6 +63,7 @@ export default function Admin(props) {
   const [location, setLocation] = useState({ lat: 34.421, lng: -119.847 })
 
   const onSubmit = useCallback(async () => {
+    setError(null)
     const info = {
       name,
       code,
@@ -61,8 +73,20 @@ export default function Admin(props) {
       notifyDate,
       location
     }
-    console.log("submitting...")
-    console.log(info)
+    const response = await addDrop(info)
+    const result = await response.json()
+
+    if (!response.ok) {
+      setError(result.message)
+    } else {
+      setSuccess(true)
+      setName("")
+      setCode("")
+      setPrize("")
+      setPassword("")
+      setStartDate(new Date())
+      setNotifyDate()
+    }
   }, [code, location, name, notifyDate, password, prize, startDate])
 
   return (
@@ -108,6 +132,8 @@ export default function Admin(props) {
       <br />
       <br />
       <br />
+      {error && <ErrorText>{error}</ErrorText>}
+      {success && <SuccessText>Success</SuccessText>}
       <Submit onClick={onSubmit}>Submit</Submit>
     </Container>
   )
