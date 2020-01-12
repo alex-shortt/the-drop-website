@@ -76,6 +76,7 @@
     "axios": "^0.19.1",
     "firebase": "^7.6.2",
     "normalize.css": "^8.0.1",
+    "perlin-noise-3d": "^0.5.2",
     "query-string": "^6.4.2",
     "react": "^16.8.6",
     "react-datepicker": "^2.10.1",
@@ -86,6 +87,7 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
     "styled-components": "^4.2.0",
+    "three": "^0.112.1",
     "typeface-roboto": "^0.0.54",
     "use-react-router": "^1.0.7"
   }
