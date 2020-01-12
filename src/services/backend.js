@@ -4,6 +4,12 @@ export async function addDrop(data) {
   })
 }
 
+export async function addUser(data){
+  return fetchWithBody("signupUser", {
+    body: data
+  })
+}
+
 async function fetchWithBody(endpoint, params) {
   const { body, ...restParams } = params
 
