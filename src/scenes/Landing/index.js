@@ -1,12 +1,28 @@
 import React, { useState, useCallback } from "react"
 import styled from "styled-components/macro"
 
+import { addUser } from "services/backend"
 import Helmet from "components/Helmet"
+import TextInput from "./components/TextInput"
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
   `
+  const Submit = styled.button`
+  border: 1px solid black;
+  padding: 10px 10px;
+  margin: 40px auto;
+  display: block;
+  cursor: pointer;
+  font-size: 1.4rem;
+
+  &:hover,
+  &:active {
+    background: black;
+    color: white;
+  }
+`
 
 const Title = styled.h1`
   text-align: center;
@@ -23,28 +39,30 @@ export default function Landing(props) {
   const [phone, setPhone] = useState("")
   const [venmo, setVenmo] = useState("")
 
-  const onSubmitPhone = useCallback(
+  const onSubmit = useCallback(
     e => {
       console.log(phone)
-    },
-    [phone]
-  )
-
-  const onSubmitVenmo = useCallback(
-    e => {
       console.log(venmo)
     },
-    [venmo]
+    [phone]
   )
 
   return (
     <Container>
       <Helmet title="Landing" />
       <Title>The Drop</Title>
-      <Input value={phone} onChange={e => setPhone(e.target.value)} />
-      <Button onClick={onSubmitPhone}>submit</Button>
-      <Input value={venmo} onChange= {e => setVenmo(e.target.value)}/>
-      <Button onClick={onSubmitVenmo}>submit</Button>
+      <TextInput
+          name = "Sign Up"
+          subtitle="Phone number"
+          state={phone}
+          setState={setPhone}
+      />
+      <TextInput
+        subtitle="Venmo"
+        state={venmo}
+        setState={setVenmo}
+      />
+      <Submit onClick={onSubmit}>Submit</Submit>
 
     </Container>
   )
