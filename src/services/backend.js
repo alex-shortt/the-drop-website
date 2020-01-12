@@ -6,6 +6,12 @@ export async function addDrop(data) {
 
 export async function verifyCode(data) {
   return fetchWithBody("verifyCode", {
+   body: data
+  })
+}
+
+export async function addUser(data){
+  return fetchWithBody("signupUser", {
     body: data
   })
 }
