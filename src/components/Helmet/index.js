@@ -6,7 +6,7 @@ export default function Helmet(props) {
 
   return (
     <ReactHelmet>
-      <title>{title}</title>
+      <title>{title} | The Drop</title>
       {children}
     </ReactHelmet>
   )

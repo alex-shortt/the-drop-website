@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { GoogleMap as GoogleMapReact, LoadScript } from "@react-google-maps/api"
 import styled from "styled-components/macro"
 
@@ -37,7 +37,14 @@ export default function GoogleMap(props) {
   const options = {
     streetViewControl: false,
     mapTypeControl: false,
-    styles: mapStyle
+    styles: [
+      ...mapStyle,
+      {
+        featureType: "poi",
+        stylers: [{ visibility: "off" }]
+      }
+    ],
+    allowFullscreen: false
   }
 
   return (

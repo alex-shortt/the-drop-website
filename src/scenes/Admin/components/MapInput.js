@@ -1,21 +1,22 @@
 import React, { useState, useCallback } from "react"
-import { GoogleMap as GoogleMapReact, LoadScript } from "@react-google-maps/api"
+import {
+  GoogleMap as GoogleMapReact,
+  LoadScript,
+  Marker
+} from "@react-google-maps/api"
 import styled from "styled-components/macro"
-
-import Marker from "components/Marker"
 
 const API_KEY = "AIzaSyCjo88UEPDl7uwUV_X-x2nD3mlF0HlXrHU"
 
 const Container = styled.div`
   width: 90%;
   max-width: 500px;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  margin-bottom: 20px;
 
   & > * {
     height: 100%;

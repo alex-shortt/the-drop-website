@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import styled from "styled-components/macro"
+import { Marker } from "@react-google-maps/api"
 
 import Helmet from "components/Helmet"
-import { getDrop } from "services/firebase"
+import { useDrop } from "services/firebase"
 import GoogleMap from "components/GoogleMap"
 import { usePosition } from "services/position"
-import Marker from "components/Marker"
+import dropImage from "assets/images/drop.png"
+import markerImage from "assets/images/marker.png"
+import { useVenmo } from "services/localStorage"
 
-import LoadingDrop from "./components/LoadingDrop"
-import ErrorDrop from "./components/ErrorDrop"
+import GetVenmo from "./components/GetVenmo"
+import NoDrop from "./components/NoDrop"
 import CodeInput from "./components/CodeInput"
 
 const Container = styled.div`
@@ -18,37 +21,22 @@ const Container = styled.div`
 
 export default function Drop(props) {
   const {
+    history,
     match: {
-      params: { id, venmo }
+      params: { id }
     }
   } = props
 
-  const [error, setError] = useState(false)
-  const [drop, setDrop] = useState(null)
-  const [code, setCode] = useState("")
+  const { venmo, setVenmo } = useVenmo()
   const userPosition = usePosition()
+  const { drop, error } = useDrop(id)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getDrop(id)
-      if (!result) {
-        setError("Drop Not Found")
-      } else {
-        setDrop(result)
-      }
-    }
-
-    if (!drop && !error) {
-      fetchData()
-    }
-  }, [drop, error, id])
-
-  if (!drop && !error) {
-    return <LoadingDrop />
+  if (!venmo) {
+    return <GetVenmo setVenmo={setVenmo} />
   }
 
-  if (error) {
-    return <ErrorDrop error={error} />
+  if ((!drop && !error) || error || drop.status !== "active" || drop.winner) {
+    return <NoDrop drop={drop} error={error} />
   }
 
   const center = convertCoords(drop.location)
@@ -59,10 +47,10 @@ export default function Drop(props) {
     <Container>
       <Helmet title="Drop" />
       <GoogleMap center={center}>
-        <Marker position={center} />
-        {userPos && <Marker position={userPos} />}
+        <Marker icon={dropImage} position={center} />
+        {userPos && <Marker icon={markerImage} position={userPos} />}
       </GoogleMap>
-      <CodeInput state={code} setState={setCode} />
+      <CodeInput venmo={venmo} history={history} />
     </Container>
   )
 }

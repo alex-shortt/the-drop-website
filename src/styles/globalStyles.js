@@ -12,8 +12,16 @@ export default createGlobalStyle`
   }
 
   body {
-    font-family: Avenir, Lato, Roboto, sans-serif;
+    font-family: Futura, Avenir, Lato, Roboto, sans-serif;
     overflow: auto;
     overflow-x: hidden;
+  }
+  
+  .gm-control-active.gm-fullscreen-control {
+    display: none;
+  }
+  
+  .gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom{
+    top: 0;
   }
 `
