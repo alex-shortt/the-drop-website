@@ -2,9 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from "react"
 import styled from "styled-components/macro"
 
 import { addUser } from "services/backend"
-import Helmet from "components/Helmet"
-
-import { storeVenmo } from "../../services/localStorage"
+import { storeVenmo } from "services/localStorage"
 
 import { ThreeWrapper } from "./components/threeWrapper"
 import TextInput from "./components/TextInput"
@@ -60,6 +58,12 @@ const Content = styled.div`
   transform: translate(-50%, -50%);
 `
 
+const Subtitle = styled.p`
+  margin: 20px 0 10px;
+  text-align: center;
+  font-size: 17px;
+`
+
 export default function Landing(props) {
   const [error, setError] = useState()
   const [success, setSuccess] = useState()
@@ -99,16 +103,15 @@ export default function Landing(props) {
 
   return (
     <Container ref={containerRef}>
-      <Helmet />
       <Content>
         <Title>the drop</Title>
-        <TextInput
-          name="Sign Up"
-          subtitle="Phone number"
-          state={phone}
-          setState={setPhone}
-        />
-        <TextInput subtitle="Venmo" state={venmo} setState={setVenmo} />
+        <Subtitle>
+          you want the drip?
+          <br />
+          get the drop.
+        </Subtitle>
+        <TextInput name="Phone" state={phone} setState={setPhone} />
+        <TextInput name="Venmo" state={venmo} setState={setVenmo} />
         {error && <ErrorText>{error}</ErrorText>}
         {success && <SuccessText>Success</SuccessText>}
         <Submit onClick={onSubmit}>Submit</Submit>

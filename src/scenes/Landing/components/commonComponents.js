@@ -21,6 +21,7 @@ export const Input = styled.input`
   box-sizing: border-box;
   padding: 5px 10px;
   max-width: 100%;
+  width: 100%;
 `
 
 export const Subtitle = styled.p`
@@ -31,5 +32,7 @@ export const Subtitle = styled.p`
 `
 
 export const Title = styled.h3`
-  margin-bottom: 0;
+  margin-bottom: 2px;
+  text-align: left;
+  width: 100%;
 `

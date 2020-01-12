@@ -11,8 +11,10 @@ export default function TextInput(props) {
       {subtitle && <Subtitle>{subtitle}</Subtitle>}
       <Input
         value={state}
-        onChange={e => setState(e.target.value)}
-        {...restProps}
+        onChange={e => {
+          console.log(e.targete.value)
+          setState(e.target.value)
+        }}
       />
     </Container>
   )
