@@ -4,6 +4,8 @@ import styled from "styled-components/macro"
 import { addUser } from "services/backend"
 import Helmet from "components/Helmet"
 
+import { storeVenmo } from "../../services/localStorage"
+
 import { ThreeWrapper } from "./components/threeWrapper"
 import TextInput from "./components/TextInput"
 
@@ -89,6 +91,7 @@ export default function Landing(props) {
       setError(result.message)
     } else {
       setSuccess(true)
+      storeVenmo(venmo)
       setPhone("")
       setVenmo("")
     }
