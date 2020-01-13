@@ -2,10 +2,10 @@ import React from "react"
 import renderer from "react-test-renderer"
 import "jest-styled-components"
 
-import View from "./index"
+import GoogleMap from "./index"
 
 it("renders correctly", () => {
-  const tree = renderer.create(<View />).toJSON()
+  const tree = renderer.create(<GoogleMap />).toJSON()
 
   expect(tree).toMatchSnapshot()
 })
