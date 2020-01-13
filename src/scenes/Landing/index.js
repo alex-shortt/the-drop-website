@@ -64,21 +64,29 @@ const Subtitle = styled.p`
   font-size: 17px;
 `
 
+const Background = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`
+
 export default function Landing(props) {
   const [error, setError] = useState()
   const [success, setSuccess] = useState()
   const [phone, setPhone] = useState("")
   const [venmo, setVenmo] = useState("")
-  const [setup, setSetup] = useState("false")
+  const [setup, setSetup] = useState(false)
   const containerRef = useRef()
   const threeWrapper = new ThreeWrapper()
 
   useEffect(() => {
-    if (setup === "false") {
+    if (setup === false) {
       threeWrapper.sceneSetup(containerRef.current)
       threeWrapper.addCustomSceneObjects()
       threeWrapper.startAnimationLoop()
-      setSetup("true")
+      setSetup(true)
     }
   }, [setup, threeWrapper])
 
@@ -102,20 +110,23 @@ export default function Landing(props) {
   }, [phone, venmo])
 
   return (
-    <Container ref={containerRef}>
-      <Content>
-        <Title>the drop</Title>
-        <Subtitle>
-          you want the drip?
-          <br />
-          get the drop.
-        </Subtitle>
-        <TextInput name="Phone" state={phone} setState={setPhone} />
-        <TextInput name="Venmo" state={venmo} setState={setVenmo} />
-        {error && <ErrorText>{error}</ErrorText>}
-        {success && <SuccessText>Success</SuccessText>}
-        <Submit onClick={onSubmit}>Submit</Submit>
-      </Content>
-    </Container>
+    <>
+      <Container>
+        <Content>
+          <Title>the drop</Title>
+          <Subtitle>
+            you want the drip?
+            <br />
+            get the drop.
+          </Subtitle>
+          <TextInput name="Phone" state={phone} setState={setPhone} />
+          <TextInput name="Venmo" state={venmo} setState={setVenmo} />
+          {error && <ErrorText>{error}</ErrorText>}
+          {success && <SuccessText>Success</SuccessText>}
+          <Submit onClick={onSubmit}>Submit</Submit>
+        </Content>
+      </Container>
+      <Background ref={containerRef} />
+    </>
   )
 }

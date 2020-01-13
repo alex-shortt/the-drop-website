@@ -28,8 +28,8 @@ export class ThreeWrapper {
     this.renderer.setSize(width, height)
     containerRef.appendChild(this.renderer.domElement) // mount using React ref
 
-    window.addEventListener("resize", this.handleWindowResize)
-    window.addEventListener("mousemove", this.handleMouseMove)
+    window.addEventListener("resize", this.handleWindowResize, true)
+    window.addEventListener("mousemove", this.handleMouseMove, true)
   }
 
   handleMouseMove = event => {
@@ -74,10 +74,9 @@ export class ThreeWrapper {
   }
 
   unmount = () => {
-    const { requestID, controls } = this
+    const { requestID } = this
 
     window.removeEventListener("resize", this.handleWindowResize)
     window.cancelAnimationFrame(requestID)
-    controls.dispose()
   }
 }

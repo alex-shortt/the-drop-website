@@ -20,7 +20,7 @@ export default class Terrain {
     this.clickIndex = 0
 
     this.raycaster = new THREE.Raycaster()
-    window.addEventListener("mousedown", this.onMouseDown)
+    window.addEventListener("mousedown", this.onMouseDown, true)
 
     this.setup()
     this.update(0)
